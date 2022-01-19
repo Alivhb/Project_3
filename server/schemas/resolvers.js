@@ -14,13 +14,16 @@ const resolvers = {
         },
         find_gameRequest: async(parent, {game}) =>{
             return GameRequest.find({game});
+        },
+        find_user_requests: async(parent, {username})=>{
+            return User.find({GameRequest})
         }
     },
 
     Mutation:{
         addUser: async(parent, {username, email, password})=>{
             const user = await User.create({username, email, password});
-            const token = signToken(user);
+            const token = 001
             return {token, user};
         },
         login: async(parent, {username, password})=>{
@@ -38,8 +41,8 @@ const resolvers = {
             
             return {token, user};
         },
-        addGameRequest: async(parent, {user_id, game, description})=>{
-            const gamerequest = await GameRequest.create({user_id, game, description});
+        addGameRequest: async(parent, {username, game, description})=>{
+            const gamerequest = await GameRequest.create({username, game, description});
 
             return gamerequest;
         },

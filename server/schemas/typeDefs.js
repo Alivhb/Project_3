@@ -8,12 +8,13 @@ const typeDefs = gql`
         email:String
         password: String
         alternate_ids: String
+        gameRequests: GameRequest
 
     }
 
     type GameRequest {
         _id: ID
-        user_id: ID
+        username: String
         game: String
         description: String
     }
@@ -26,13 +27,14 @@ const typeDefs = gql`
     type Query {
         find_users: [User]
         find_user(username: String!): User
+        find_user_requests(username: String): GameRequest
         find_gameRequest(game: String!): GameRequest
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password:String!): Auth
         login(username: String!, password: String!): Auth
-        addGameRequest(user_id: ID! , game: String!, description: String!): GameRequest
+        addGameRequest(username: ID! , game: String!, description: String!): GameRequest
         removeGameRequest(_id: ID!): GameRequest
     }
 `;
